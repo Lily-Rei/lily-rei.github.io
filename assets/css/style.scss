@@ -1,0 +1,123 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.page-wrap {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.sidebar {
+  width: 220px;
+  min-width: 220px;
+  position: sticky;
+  top: 20px;
+  border: 1px solid #b5e853;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.sidebar h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.nav-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.nav-list li {
+  margin: 0 0 10px 0;
+}
+
+.nav-list a {
+  text-decoration: none;
+}
+
+.nav-list a.active {
+  font-weight: bold;
+  text-shadow: 0 0 6px #b5e853;
+}
+
+#main_content {
+  flex: 1;
+  min-width: 0;
+}
+#terminal-wrap {
+  width: 100%;
+  margin: 1rem 0 0.75rem 0;
+  border: 1px solid #b5e853;
+  background: #020814;
+  box-shadow: 0 0 12px rgba(181, 232, 83, 0.12);
+  overflow: hidden;
+}
+
+#terminal-app {
+  width: 100%;
+  min-height: 420px;
+}
+
+#terminal-app .xterm {
+  padding: 14px;
+}
+
+#terminal-app .xterm-viewport {
+  overflow-y: auto !important;
+}
+
+.terminal-note,
+.terminal-help {
+  margin: 0.5rem 0 0 0;
+}
+
+#ops-challenge-list {
+  margin: 1rem 0 1.5rem 0;
+}
+
+.ops-panel {
+  border: 1px solid #2fd6c4;
+  background: rgba(11, 15, 20, 0.65);
+  padding: 1rem;
+}
+
+.ops-challenge-card {
+  border: 1px solid rgba(47, 214, 196, 0.35);
+  padding: 0.85rem;
+  margin-bottom: 0.85rem;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+#ops-terminal {
+  width: 100%;
+  min-height: 520px;
+}
+
+#ops-terminal .xterm {
+  padding: 14px;
+}
+
+#ops-terminal .xterm-viewport {
+  overflow-y: auto !important;
+  background: #0b0f14;
+}
+
+
+@media screen and (max-width: 900px) {
+  .page-wrap {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: unset;
+    position: static;
+  }
+
+  #terminal {
+    min-height: 320px;
+  }
+}

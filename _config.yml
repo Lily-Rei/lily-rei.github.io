@@ -1,0 +1,6 @@
+title: "Lily Rei"
+description: "Offensive Security • CTF Development • Cyber Range Design • Hands-On Cybersecurity Education"
+
+remote_theme: "pages-themes/hacker@v0.2.0"
+plugins:
+  - "jekyll-remote-theme"

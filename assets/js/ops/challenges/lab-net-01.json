@@ -1,0 +1,99 @@
+{
+  "name": "Internal Recon 01",
+  "briefing": {
+    "scope": "10.10.40.0/24",
+    "objective": "Identify live hosts and enumerate exposed services.",
+    "hint": "Start with host discovery."
+  },
+  "subnets": ["10.10.40.0/24"],
+  "files": {
+    "artifact.bin": {
+      "mime": "ELF 64-bit LSB executable, x86-64, simulated sample",
+      "strings": [
+        "operator",
+        "build.break.teach",
+        "invite",
+        "lily-rei.github.io@root",
+        "/ops/"
+      ]
+    }
+  },
+  "hosts": {
+    "10.10.40.1": {
+      "up": true,
+      "hostname": "gateway.local",
+      "os": "Linux",
+      "ping": {
+        "ttl": 64,
+        "times": ["0.41", "0.39", "0.44", "0.42"]
+      },
+      "ports": {
+        "22": {
+          "state": "open",
+          "service": "ssh",
+          "version": "OpenSSH 8.4"
+        }
+      }
+    },
+    "10.10.40.12": {
+      "up": true,
+      "hostname": "intranet.local",
+      "os": "Linux",
+      "ports": {
+        "80": {
+          "state": "open",
+          "service": "http",
+          "version": "nginx 1.22.1"
+        },
+        "443": {
+          "state": "open",
+          "service": "https",
+          "version": "nginx 1.22.1"
+        }
+      },
+      "http": {
+        "http://10.10.40.12/": {
+          "status": 200,
+          "body": [
+            "<html>",
+            "<head><title>Intranet</title></head>",
+            "<body>",
+            "<h1>Internal Portal</h1>",
+            "<!-- dev note: check devbox on 10.10.40.25:3000 -->",
+            "</body>",
+            "</html>"
+          ]
+        }
+      }
+    },
+    "10.10.40.25": {
+      "up": true,
+      "hostname": "devbox.local",
+      "os": "Linux",
+      "ports": {
+        "22": {
+          "state": "open",
+          "service": "ssh",
+          "version": "OpenSSH 9.0"
+        },
+        "3000": {
+          "state": "open",
+          "service": "http",
+          "version": "Node.js Express"
+        }
+      },
+      "http": {
+        "http://10.10.40.25:3000/": {
+          "status": 200,
+          "body": [
+            "{",
+            "  \"status\": \"dev\",",
+            "  \"note\": \"staging build exposed\",",
+            "  \"hint\": \"enumeration beats guessing\"",
+            "}"
+          ]
+        }
+      }
+    }
+  }
+}

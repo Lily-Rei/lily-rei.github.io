@@ -1,0 +1,20 @@
+{
+  "challenges": [
+    {
+      "slug": "lab-net-01",
+      "name": "Internal Recon 01",
+      "description": "Basic subnet discovery and service enumeration.",
+      "difficulty": "easy",
+      "type": "recon",
+      "scenario": "/assets/js/ops/challenges/lab-net-01.json"
+    },
+    {
+      "slug": "dmz-foothold",
+      "name": "DMZ Foothold",
+      "description": "Find the exposed service and identify the likely entry point.",
+      "difficulty": "medium",
+      "type": "enumeration",
+      "scenario": "/assets/js/ops/challenges/dmz-foothold.json"
+    }
+  ]
+}

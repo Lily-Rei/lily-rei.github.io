@@ -1,0 +1,97 @@
+{
+  "name": "DMZ Foothold",
+  "briefing": {
+    "scope": "172.16.50.0/24",
+    "objective": "Identify exposed services in the DMZ and determine the most likely foothold path.",
+    "hint": "Start with host discovery, then inspect the web services carefully."
+  },
+  "subnets": ["172.16.50.0/24"],
+  "files": {
+    "artifact.bin": {
+      "mime": "ELF 64-bit LSB executable, x86-64, simulated sample",
+      "strings": [
+        "web01.dmz.local",
+        "files.dmz.local",
+        "8080",
+        "anonymous ftp?"
+      ]
+    }
+  },
+  "hosts": {
+    "172.16.50.10": {
+      "up": true,
+      "hostname": "web01.dmz.local",
+      "os": "Linux",
+      "ping": {
+        "ttl": 64,
+        "times": ["0.58", "0.61", "0.57", "0.60"]
+      },
+      "ports": {
+        "22": {
+          "state": "open",
+          "service": "ssh",
+          "version": "OpenSSH 8.9"
+        },
+        "80": {
+          "state": "open",
+          "service": "http",
+          "version": "Apache 2.4.57"
+        },
+        "8080": {
+          "state": "open",
+          "service": "http-proxy",
+          "version": "Jetty 10.0"
+        }
+      },
+      "http": {
+        "http://172.16.50.10/": {
+          "status": 200,
+          "body": [
+            "<html>",
+            "<head><title>DMZ Portal</title></head>",
+            "<body>",
+            "<h1>DMZ Portal</h1>",
+            "<p>Welcome.</p>",
+            "<!-- alternate admin interface may exist on 8080 -->",
+            "</body>",
+            "</html>"
+          ]
+        },
+        "http://172.16.50.10:8080/": {
+          "status": 200,
+          "body": [
+            "<html>",
+            "<head><title>Admin Console</title></head>",
+            "<body>",
+            "<h1>Jetty Admin</h1>",
+            "<p>Restricted service.</p>",
+            "<!-- check related storage host for exposed data -->",
+            "</body>",
+            "</html>"
+          ]
+        }
+      }
+    },
+    "172.16.50.20": {
+      "up": true,
+      "hostname": "files.dmz.local",
+      "os": "Linux",
+      "ping": {
+        "ttl": 64,
+        "times": ["0.73", "0.70", "0.75", "0.72"]
+      },
+      "ports": {
+        "21": {
+          "state": "open",
+          "service": "ftp",
+          "version": "vsftpd 3.0.3"
+        },
+        "445": {
+          "state": "open",
+          "service": "microsoft-ds",
+          "version": "Samba 4.15"
+        }
+      }
+    }
+  }
+}
